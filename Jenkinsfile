@@ -9,10 +9,10 @@ pipeline {
                 }
             }
         }
+
         stage ('Push docker image') {
             steps {
                 script {
-                    // docker.withDockerRegistry()
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
                         dockerapp.push('laster')
                         dockerapp.push("${env.BUILD_ID}")
@@ -20,6 +20,15 @@ pipeline {
                     }
                 }
             }
+        }
+        
+        stage ('Deploy kubernetes') {
+            steps {
+                withKubeConfig([credentialsId: 'kubeconfig']) {
+                    sh "kubectl apply -f ./k8s/deployment.yaml"
+                }
+            }
+
         }
     }
 }
