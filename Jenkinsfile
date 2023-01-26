@@ -15,7 +15,7 @@ pipeline {
                     // docker.withDockerRegistry()
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
                         dockerapp.push('laster')
-                        dockerapp.push(${env.BUILD_ID})
+                        dockerapp.push("${env.BUILD_ID}")
 
                     }
                 }
