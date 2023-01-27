@@ -55,7 +55,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: catalanmatheus/kube-news:v2
+          image: catalanmatheus/kube-news:{{TAG}}
           ports:
            - containerPort: 8080
           env: 
